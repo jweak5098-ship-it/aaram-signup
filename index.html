@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aaram — Join the Waitlist</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --green:#2d6a4f;--green-l:#40916c;--green-pale:#d8f3dc;
+  --gold:#f4a261;--gold-l:#e76f51;
+  --ink:#111;--ink2:#444;--ink3:#888;
+  --stone:#f7f5f2;--white:#fff;
+  --radius:16px;--radius-sm:10px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:#0d1b12;color:var(--white);min-height:100vh;overflow-x:hidden}
+
+/* ── ANIMATED BG ── */
+.bg-orbs{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);animation:float 8s ease-in-out infinite}
+.orb-1{width:400px;height:400px;background:rgba(45,106,79,0.35);top:-100px;right:-100px;animation-delay:0s}
+.orb-2{width:300px;height:300px;background:rgba(244,162,97,0.15);bottom:-80px;left:-80px;animation-delay:3s}
+.orb-3{width:250px;height:250px;background:rgba(64,145,108,0.25);top:50%;left:50%;transform:translate(-50%,-50%);animation-delay:5s}
+@keyframes float{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-30px) scale(1.05)}}
+.orb-2{animation:float2 10s ease-in-out infinite}
+@keyframes float2{0%,100%{transform:translateY(0)}50%{transform:translateY(20px)}}
+
+/* ── WRAPPER ── */
+.wrap{position:relative;z-index:1;max-width:640px;margin:0 auto;padding:2rem 1.5rem 4rem}
+
+/* ── HEADER ── */
+.header{text-align:center;padding:3rem 0 2rem}
+.logo{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:700;letter-spacing:.04em;margin-bottom:.5rem}
+.logo span{color:#6ecf8b}
+.logo-dot{display:inline-block;width:8px;height:8px;background:var(--gold);border-radius:50%;margin-left:2px;vertical-align:middle;animation:pulse-dot 2s infinite}
+@keyframes pulse-dot{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.4);opacity:.7}}
+.tagline{font-size:1.05rem;color:rgba(255,255,255,0.6);font-weight:300;margin-bottom:2rem}
+
+/* ── OFFER BANNER ── */
+.offer-banner{background:linear-gradient(135deg,var(--gold),var(--gold-l));border-radius:var(--radius);padding:1rem 1.5rem;margin-bottom:2rem;display:flex;align-items:center;gap:1rem}
+.offer-icon{font-size:1.8rem;flex-shrink:0}
+.offer-text h3{font-size:.95rem;font-weight:700;color:#1a0a00;margin-bottom:.15rem}
+.offer-text p{font-size:.82rem;color:rgba(26,10,0,0.75);line-height:1.4}
+
+/* ── PROGRESS ── */
+.progress-wrap{margin-bottom:1.5rem}
+.progress-bar-track{height:4px;background:rgba(255,255,255,0.1);border-radius:2px;overflow:hidden;margin-bottom:.5rem}
+.progress-bar-fill{height:100%;background:linear-gradient(90deg,var(--green-l),#6ecf8b);border-radius:2px;transition:width .5s cubic-bezier(.4,0,.2,1);width:0%}
+.progress-labels{display:flex;justify-content:space-between;font-size:.75rem;color:rgba(255,255,255,0.4)}
+
+/* ── STEP CARD ── */
+.step-card{background:rgba(255,255,255,0.05);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius);padding:2rem 1.75rem;min-height:320px;position:relative;overflow:hidden}
+.step-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--green-l),#6ecf8b);border-radius:var(--radius) var(--radius) 0 0}
+
+.step{display:none}
+.step.active{display:block;animation:stepIn .35s ease}
+@keyframes stepIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+.step-num{font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#6ecf8b;margin-bottom:.5rem}
+.step-q{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:400;line-height:1.3;margin-bottom:.4rem}
+.step-sub{font-size:.85rem;color:rgba(255,255,255,0.5);margin-bottom:1.5rem;font-weight:300}
+
+/* ── INPUT ── */
+.inp{width:100%;background:rgba(255,255,255,0.08);border:1.5px solid rgba(255,255,255,0.15);border-radius:var(--radius-sm);padding:.85rem 1.1rem;font-family:'Inter',sans-serif;font-size:.95rem;color:#fff;outline:none;transition:all .25s}
+.inp::placeholder{color:rgba(255,255,255,0.3)}
+.inp:focus{border-color:#6ecf8b;background:rgba(255,255,255,0.1)}
+.inp-row{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+
+/* ── OPTION BUTTONS ── */
+.options{display:flex;flex-direction:column;gap:.65rem}
+.options.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:.65rem}
+.opt-btn{background:rgba(255,255,255,0.07);border:1.5px solid rgba(255,255,255,0.12);border-radius:var(--radius-sm);padding:.85rem 1.1rem;color:rgba(255,255,255,0.85);font-family:'Inter',sans-serif;font-size:.9rem;font-weight:400;cursor:pointer;transition:all .2s;text-align:left;display:flex;align-items:center;gap:.65rem}
+.opt-btn:hover{background:rgba(110,207,139,0.12);border-color:#6ecf8b;color:#fff}
+.opt-btn.selected{background:rgba(110,207,139,0.2);border-color:#6ecf8b;color:#fff;font-weight:500}
+.opt-btn .opt-icon{font-size:1.1rem;flex-shrink:0}
+.opt-btn .opt-label{flex:1}
+.opt-check{width:18px;height:18px;border-radius:50%;border:2px solid rgba(255,255,255,0.2);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s;font-size:.7rem}
+.opt-btn.selected .opt-check{background:#6ecf8b;border-color:#6ecf8b;content:'✓'}
+
+/* ── MULTI SELECT ── */
+.multi-hint{font-size:.75rem;color:rgba(255,255,255,0.4);margin-bottom:.75rem}
+
+/* ── RANGE SLIDER ── */
+.range-wrap{padding:.5rem 0}
+.range-labels{display:flex;justify-content:space-between;font-size:.8rem;color:rgba(255,255,255,0.4);margin-bottom:.4rem}
+.range-val{text-align:center;font-family:'Playfair Display',serif;font-size:2rem;font-weight:400;color:#6ecf8b;margin-bottom:.75rem}
+input[type=range]{width:100%;appearance:none;-webkit-appearance:none;height:6px;background:rgba(255,255,255,0.12);border-radius:3px;outline:none;cursor:pointer}
+input[type=range]::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,var(--green-l),#6ecf8b);cursor:pointer;box-shadow:0 0 0 4px rgba(110,207,139,0.2)}
+
+/* ── NAV BUTTONS ── */
+.btn-row{display:flex;gap:.75rem;margin-top:1.75rem}
+.btn-next{flex:1;background:linear-gradient(135deg,var(--green),var(--green-l));color:#fff;border:none;padding:.9rem 1.5rem;border-radius:var(--radius-sm);font-family:'Inter',sans-serif;font-size:.95rem;font-weight:600;cursor:pointer;transition:all .25s;display:flex;align-items:center;justify-content:center;gap:.5rem}
+.btn-next:hover{transform:translateY(-1px);box-shadow:0 8px 25px rgba(45,106,79,0.4)}
+.btn-next:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.btn-back{background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.6);border:1px solid rgba(255,255,255,0.12);padding:.9rem 1.2rem;border-radius:var(--radius-sm);font-family:'Inter',sans-serif;font-size:.9rem;cursor:pointer;transition:all .2s}
+.btn-back:hover{background:rgba(255,255,255,0.12);color:#fff}
+
+/* ── SUCCESS ── */
+.success-page{display:none;text-align:center;animation:stepIn .5s ease}
+.success-page.show{display:block}
+.success-icon{font-size:4rem;margin-bottom:1rem;animation:bounce 1s ease .2s both}
+@keyframes bounce{0%{transform:scale(0)}60%{transform:scale(1.2)}100%{transform:scale(1)}}
+.success-title{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;margin-bottom:.5rem}
+.success-title em{font-style:italic;color:#6ecf8b}
+.success-sub{font-size:1rem;color:rgba(255,255,255,0.6);margin-bottom:2rem;line-height:1.6}
+
+.reward-card{background:linear-gradient(135deg,rgba(244,162,97,0.2),rgba(231,111,81,0.15));border:1.5px solid rgba(244,162,97,0.4);border-radius:var(--radius);padding:1.5rem;margin-bottom:1.5rem;text-align:left}
+.reward-card h3{font-size:1rem;font-weight:700;color:var(--gold);margin-bottom:.5rem;display:flex;align-items:center;gap:.5rem}
+.reward-card p{font-size:.9rem;color:rgba(255,255,255,0.75);line-height:1.5}
+.reward-code{display:inline-block;background:rgba(244,162,97,0.2);border:1.5px dashed rgba(244,162,97,0.5);border-radius:8px;padding:.4rem 1rem;font-family:'Inter',sans-serif;font-size:1.1rem;font-weight:700;color:var(--gold);letter-spacing:.1em;margin-top:.5rem}
+
+.share-row{display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap;margin-bottom:2rem}
+.share-btn{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:var(--radius-sm);padding:.65rem 1.2rem;color:#fff;font-size:.85rem;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;transition:all .2s;display:flex;align-items:center;gap:.5rem;text-decoration:none}
+.share-btn:hover{background:rgba(255,255,255,0.15)}
+
+.social-links{display:flex;gap:1rem;justify-content:center}
+.social-link{color:rgba(255,255,255,0.5);font-size:.82rem;text-decoration:none;transition:color .2s}
+.social-link:hover{color:#6ecf8b}
+
+/* ── STATS BAR ── */
+.stats-bar{display:flex;justify-content:center;gap:2.5rem;margin-bottom:2rem;padding:1rem;background:rgba(255,255,255,0.04);border-radius:var(--radius-sm);border:1px solid rgba(255,255,255,0.07)}
+.stat{text-align:center}
+.stat-n{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:#6ecf8b}
+.stat-l{font-size:.72rem;color:rgba(255,255,255,0.4);letter-spacing:.06em;text-transform:uppercase}
+
+/* ── TRUST BADGES ── */
+.trust-row{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;margin-top:1.5rem}
+.trust-item{display:flex;align-items:center;gap:.4rem;font-size:.75rem;color:rgba(255,255,255,0.4)}
+
+/* ── MOBILE ── */
+@media(max-width:480px){
+  .step-q{font-size:1.2rem}
+  .options.grid-2{grid-template-columns:1fr}
+  .inp-row{grid-template-columns:1fr}
+  .stats-bar{gap:1.5rem}
+}
+</style>
+</head>
+<body>
+
+<!-- BG -->
+<div class="bg-orbs">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+</div>
+
+<div class="wrap">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="logo">Aaram<span>.</span><div class="logo-dot"></div></div>
+    <p class="tagline">Professional home massage · Metro Vancouver</p>
+    <div class="stats-bar">
+      <div class="stat"><div class="stat-n" id="counter-num">47</div><div class="stat-l">on waitlist</div></div>
+      <div class="stat"><div class="stat-n">4</div><div class="stat-l">neighbourhoods</div></div>
+      <div class="stat"><div class="stat-n">2</div><div class="stat-l">spots left today</div></div>
+    </div>
+  </div>
+
+  <!-- OFFER BANNER -->
+  <div class="offer-banner" id="offer-banner">
+    <div class="offer-icon">🎁</div>
+    <div class="offer-text">
+      <h3>Founding member rewards — just for signing up</h3>
+      <p>First 50 members get 10% off their first session. Next 50 get a free upgrade from 60 to 90 min. Both. No catch.</p>
+    </div>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-wrap">
+    <div class="progress-bar-track">
+      <div class="progress-bar-fill" id="progress-fill"></div>
+    </div>
+    <div class="progress-labels">
+      <span id="progress-label">Let's get started</span>
+      <span id="progress-pct">0 / 7</span>
+    </div>
+  </div>
+
+  <!-- FORM CARD -->
+  <div class="step-card" id="step-card">
+
+    <!-- STEP 1: Name + Email -->
+    <div class="step active" id="step-1">
+      <div class="step-num">Step 1 of 7 — The basics</div>
+      <div class="step-q">First, what's your name and email? 👋</div>
+      <div class="step-sub">We'll send your reward code here. Takes 10 seconds.</div>
+      <div class="inp-row" style="margin-bottom:.75rem">
+        <input class="inp" type="text" id="f-name" placeholder="Your first name" autocomplete="given-name">
+        <input class="inp" type="email" id="f-email" placeholder="your@email.com" autocomplete="email">
+      </div>
+      <div class="btn-row">
+        <button class="btn-next" onclick="goNext(1)">Let's go →</button>
+      </div>
+    </div>
+
+    <!-- STEP 2: Neighbourhood -->
+    <div class="step" id="step-2">
+      <div class="step-num">Step 2 of 7 — Where you live</div>
+      <div class="step-q">Which neighbourhood are you in? 📍</div>
+      <div class="step-sub">We launch area by area — this tells us where to go first.</div>
+      <div class="options grid-2" id="opts-area">
+        <button class="opt-btn" onclick="selectOpt(this,'area')"><span class="opt-icon">🏖️</span><span class="opt-label">Kitsilano</span><span class="opt-check"></span></button>
+        <button class="opt-btn" onclick="selectOpt(this,'area')"><span class="opt-icon">🎨</span><span class="opt-label">Mount Pleasant</span><span class="opt-check"></span></button>
+        <button class="opt-btn" onclick="selectOpt(this,'area')"><span class="opt-icon">🌇</span><span class="opt-label">Yaletown</span><span class="opt-check"></span></button>
+        <button class="opt-btn" onclick="selectOpt(this,'area')"><span class="opt-icon">☕</span><span class="opt-label">Commercial Drive</span><span class="opt-check"></span></button>
+        <button class="opt-btn" onclick="selectOpt(this,'area')"><span class="opt-icon">🌊</span><span class="opt-label">West Vancouver</span><span class="opt-check"></span></button>
+        <button class="opt-btn" onclick="selectOpt(this,'area')"><span class="opt-icon">🌿</span><span class="opt-label">Vancouver Downtown</span><span class="opt-check"></span></button>
+        <button class="opt-btn" onclick="selectOpt(this,'area')"><span class="opt-icon">🏔️</span><span class="opt-label">North Vancouver</span><span class="opt-check"></span></button>
+        <button class="opt-btn" onclick="selectOpt(this,'area')"><span class="opt-icon">📍</span><span class="opt-label">Burnaby</span><span class="opt-check"></span></button>
+		<button class="opt-btn" onclick="selectOpt(this,'area')"><span class="opt-icon">📍</span><span class="opt-label">Coquitlam</span><span class="opt-check"></span></button>
+		<button class="opt-btn" onclick="selectOpt(this,'area')"><span class="opt-icon">📍</span><span class="opt-label">Port Coquitlam</span><span class="opt-check"></span></button>		
+      </div>
+      <div class="btn-row">
+        <button class="btn-back" onclick="goBack(2)">← Back</button>
+        <button class="btn-next" id="next-2" onclick="goNext(2)" disabled>Next →</button>
+      </div>
+    </div>
+
+    <!-- STEP 3: How often -->
+    <div class="step" id="step-3">
+      <div class="step-num">Step 3 of 7 — Your massage habits</div>
+      <div class="step-q">How often do you actually get a massage right now? 💆</div>
+      <div class="step-sub">Be honest — we're not judging!</div>
+      <div class="options" id="opts-freq">
+        <button class="opt-btn" onclick="selectOpt(this,'freq')"><span class="opt-icon">🔥</span><span class="opt-label">Every week or two — I'm committed</span><span class="opt-check"></span></button>
+        <button class="opt-btn" onclick="selectOpt(this,'freq')"><span class="opt-icon">📅</span><span class="opt-label">Once a month or so</span><span class="opt-check"></span></button>
+        <button class="opt-btn" onclick="selectOpt(this,'freq')"><span class="opt-icon">🤷</span><span class="opt-label">Every few months, when I remember</span><span class="opt-check"></span></button>
+        <button class="opt-btn" onclick="selectOpt(this,'freq')"><span class="opt-icon">😅</span><span class="opt-label">Rarely — it's just too much hassle</span><span class="opt-check"></span></button>
+        <button class="opt-btn" onclick="selectOpt(this,'freq')"><span class="opt-icon">✨</span><span class="opt-label">Never — but I really want to start</span><span class="opt-check"></span></button>
+      </div>
+      <div class="btn-row">
+        <button class="btn-back" onclick="goBack(3)">← Back</button>
+        <button class="btn-next" id="next-3" onclick="goNext(3)" disabled>Next →</button>
+      </div>
+    </div>
+
+    <!-- STEP 4: Biggest pain point -->
+    <div class="step" id="step-4">
+      <div class="step-num">Step 4 of 7 — The real talk</div>
+      <div class="step-q">What's the biggest thing stopping you from getting massages more often? 🙋</div>
+      <div class="step-sub">Pick the one that hits hardest.</div>
+      <div class="options" id="opts-pain">
+        <button class="opt-btn" onclick="selectOpt(this,'pain')"><span class="opt-icon">⏰</span><span class="opt-label">Clinics are booked weeks in advance</span><span class="opt-check"></span></button>
+        <button class="opt-btn" onclick="selectOpt(this,'pain')"><span class="opt-icon">🚗</span><span class="opt-label">The drive and parking kills the relaxation</span><span class="opt-check"></span></button>
+        <button class="opt-btn" onclick="selectOpt(this,'pain')"><span class="opt-icon">💸</span><span class="opt-label">It feels expensive for what you get</span><span class="opt-check"></span></button>
+        <button class="opt-btn" onclick="selectOpt(this,'pain')"><span class="opt-icon">😟</span><span class="opt-label">Hard to find a therapist I actually trust</span><span class="opt-check"></span></button>
+        <button class="opt-btn" onclick="selectOpt(this,'pain')"><span class="opt-icon">🛋️</span><span class="opt-label">I just want it at home — that option doesn't exist</span><span class="opt-check"></span></button>
+      </div>
+      <div class="btn-row">
+        <button class="btn-back" onclick="goBack(4)">← Back</button>
+        <button class="btn-next" id="next-4" onclick="goNext(4)" disabled>Next →</button>
+      </div>
+    </div>
+
+    <!-- STEP 5: Service type -->
+    <div class="step" id="step-5">
+      <div class="step-num">Step 5 of 7 — What you want</div>
+      <div class="step-q">What kind of massage would you book first? 🌿</div>
+      <div class="step-sub">Pick your top choice — helps us know what to offer first.</div>
+      <div class="options grid-2" id="opts-service">
+        <button class="opt-btn" onclick="selectOpt(this,'service')"><span class="opt-icon">😌</span><span class="opt-label">Swedish / Relaxation</span><span class="opt-check"></span></button>
+        <button class="opt-btn" onclick="selectOpt(this,'service')"><span class="opt-icon">💪</span><span class="opt-label">Deep Tissue</span><span class="opt-check"></span></button>
+        <button class="opt-btn" onclick="selectOpt(this,'service')"><span class="opt-icon">🤰</span><span class="opt-label">Prenatal</span><span class="opt-check"></span></button>
+        <button class="opt-btn" onclick="selectOpt(this,'service')"><span class="opt-icon">🏃</span><span class="opt-label">Sports Recovery</span><span class="opt-check"></span></button>
+        <button class="opt-btn" onclick="selectOpt(this,'service')"><span class="opt-icon">🪨</span><span class="opt-label">Hot Stone Add-on</span><span class="opt-check"></span></button>
+        <button class="opt-btn" onclick="selectOpt(this,'service')"><span class="opt-icon">🤷</span><span class="opt-label">Whatever my body needs!</span><span class="opt-check"></span></button>
+      </div>
+      <div class="btn-row">
+        <button class="btn-back" onclick="goBack(5)">← Back</button>
+        <button class="btn-next" id="next-5" onclick="goNext(5)" disabled>Next →</button>
+      </div>
+    </div>
+
+    <!-- STEP 6: Price they'd pay -->
+    <div class="step" id="step-6">
+      <div class="step-num">Step 6 of 7 — The money question</div>
+      <div class="step-q">For a 60-min home massage by a verified RMT — what feels fair? 💰</div>
+      <div class="step-sub">Vancouver clinics charge $140–$150. Drag to your number.</div>
+      <div class="range-wrap">
+        <div class="range-val" id="range-display">$185</div>
+        <input type="range" id="price-range" min="150" max="220" step="10" value="185" oninput="updateRange(this.value)">
+        <div class="range-labels"><span>$150</span><span>$185</span><span>$220</span></div>
+      </div>
+      <div class="btn-row">
+        <button class="btn-back" onclick="goBack(6)">← Back</button>
+        <button class="btn-next" onclick="goNext(6)">Next →</button>
+      </div>
+    </div>
+
+    <!-- STEP 7: Extended health + timing -->
+    <div class="step" id="step-7">
+      <div class="step-num">Step 7 of 7 — Last two quick ones</div>
+      <div class="step-q">Do you have extended health benefits? And when would you book? ⚡</div>
+      <div class="step-sub">Almost done — 20 seconds max.</div>
+      <p style="font-size:.82rem;color:rgba(255,255,255,0.5);margin-bottom:.5rem">Extended health plan?</p>
+      <div class="options grid-2" id="opts-benefits" style="margin-bottom:1.2rem">
+        <button class="opt-btn" onclick="selectOpt(this,'benefits')"><span class="opt-icon">✅</span><span class="opt-label">Yes — through work</span><span class="opt-check"></span></button>
+        <button class="opt-btn" onclick="selectOpt(this,'benefits')"><span class="opt-icon">🔍</span><span class="opt-label">Yes — personal plan</span><span class="opt-check"></span></button>
+        <button class="opt-btn" onclick="selectOpt(this,'benefits')"><span class="opt-icon">❌</span><span class="opt-label">No benefits</span><span class="opt-check"></span></button>
+        <button class="opt-btn" onclick="selectOpt(this,'benefits')"><span class="opt-icon">🤔</span><span class="opt-label">Not sure</span><span class="opt-check"></span></button>
+      </div>
+      <p style="font-size:.82rem;color:rgba(255,255,255,0.5);margin-bottom:.5rem">When would you book your first session?</p>
+      <div class="options" id="opts-timing">
+        <button class="opt-btn" onclick="selectOpt(this,'timing')"><span class="opt-icon">🚀</span><span class="opt-label">The moment you launch — I'm ready now</span><span class="opt-check"></span></button>
+        <button class="opt-btn" onclick="selectOpt(this,'timing')"><span class="opt-icon">📆</span><span class="opt-label">Within the first month</span><span class="opt-check"></span></button>
+        <button class="opt-btn" onclick="selectOpt(this,'timing')"><span class="opt-icon">👀</span><span class="opt-label">I want to see reviews first</span><span class="opt-check"></span></button>
+      </div>
+      <div class="btn-row">
+        <button class="btn-back" onclick="goBack(7)">← Back</button>
+        <button class="btn-next" id="next-7" onclick="submitForm()" disabled>
+          <span>Claim my reward 🎁</span>
+        </button>
+      </div>
+    </div>
+
+  </div><!-- /step-card -->
+
+  <!-- SUCCESS PAGE -->
+  <div class="success-page" id="success-page">
+    <div class="step-card" style="text-align:center;min-height:auto">
+      <div class="success-icon">🎉</div>
+      <div class="success-title">You're <em>in</em>, <span id="success-name">friend</span>!</div>
+      <p class="success-sub">Take a screenshot or save the code for later. You are officially on the Aaram founding member list.</p>
+
+      <div class="reward-card">
+        <h3>🎟️ Your founding member rewards</h3>
+        <p>As one of our first 50 members, you get <strong>both</strong> of these when we launch in your neighbourhood:</p>
+        <div style="display:flex;flex-direction:column;gap:.5rem;margin-top:.75rem">
+          <div style="display:flex;align-items:center;gap:.5rem;font-size:.9rem;color:rgba(255,255,255,0.85)">🏷️ <strong>10% off</strong> your first session</div>
+          <div style="display:flex;align-items:center;gap:.5rem;font-size:.9rem;color:rgba(255,255,255,0.85)">⬆️ <strong>Free upgrade</strong> from 60 to 90 min</div>
+        </div>
+        <div class="reward-code" id="reward-code-display">AARAM-FOUND-??</div>
+      </div>
+
+      <p style="font-size:.85rem;color:rgba(255,255,255,0.5);margin-bottom:1.25rem">Know someone who needs a massage? Share Aaram and they get the same founding reward.</p>
+
+      <div class="share-row">
+        <button class="share-btn" onclick="shareWhatsApp()">💬 WhatsApp</button>
+        <button class="share-btn" onclick="shareText()">📱 Copy link</button>
+        <a href="https://www.instagram.com/aaram.online/" target="_blank" class="share-btn">📸 Instagram</a>
+      </div>
+
+      <div class="trust-row">
+        <div class="trust-item">✓ CMTBC verified RMTs</div>
+        <div class="trust-item">✓ Insurance receipts included</div>
+        <div class="trust-item">✓ Background checked</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /wrap -->
+
+<script>
+const TOTAL = 7;
+let answers = {};
+let signupCount = 47;
+
+// ── COUNTER ANIMATION ──
+function animateCounter() {
+  const el = document.getElementById('counter-num');
+  let n = 40;
+  const target = signupCount;
+  const step = () => {
+    n = Math.min(n + 1, target);
+    el.textContent = n;
+    if (n < target) setTimeout(step, 60);
+  };
+  setTimeout(step, 800);
+}
+animateCounter();
+
+// ── PROGRESS ──
+function updateProgress(step) {
+  const pct = (step / TOTAL) * 100;
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-pct').textContent = step + ' / ' + TOTAL;
+
+  const labels = [
+    "Let's get started",
+    "Almost there...",
+    "Keep going!",
+    "Halfway there 🙌",
+    "Looking great!",
+    "One more...",
+    "Last one!"
+  ];
+
+  document.getElementById('progress-label').textContent = labels[step - 1];
+}
+
+// ── OPTION SELECT ──
+function selectOpt(btn, group) {
+  var container = document.getElementById('opts-' + group);
+  if (!container) return;
+  container.querySelectorAll('.opt-btn').forEach(function(b) {
+    b.classList.remove('selected');
+    var chk = b.querySelector('.opt-check');
+    if (chk) chk.textContent = '';
+  });
+  btn.classList.add('selected');
+  var check = btn.querySelector('.opt-check');
+  if (check) check.textContent = '✓';
+  var labelEl = btn.querySelector('.opt-label');
+  answers[group] = labelEl ? labelEl.textContent.trim() : '';
+
+  // Enable next button
+  var stepMap = {area:2, freq:3, pain:4, service:5};
+  if (stepMap[group]) {
+    var nb = document.getElementById('next-' + stepMap[group]);
+    if (nb) nb.disabled = false;
+  }
+
+  // Step 7 needs both benefits AND timing answered
+  if (group === 'benefits' || group === 'timing') {
+    var n7 = document.getElementById('next-7');
+    if (n7 && answers.benefits && answers.timing) {
+      n7.disabled = false;
+    }
+  }
+}
+
+// ── RANGE ──
+function updateRange(val) {
+  document.getElementById('range-display').textContent = '$' + val;
+  answers.price = '$' + val;
+}
+
+// ── NEXT ──
+function goNext(current) {
+  if (current === 1) {
+    var name = document.getElementById('f-name').value.trim();
+    var email = document.getElementById('f-email').value.trim();
+    if (!name) { shake(document.getElementById('f-name')); return; }
+    if (!email || !email.includes('@')) { shake(document.getElementById('f-email')); return; }
+    answers.name = name;
+    answers.email = email;
+  }
+  if (current === 6) {
+    var rangeDisplay = document.getElementById('range-display');
+    answers.price = rangeDisplay ? rangeDisplay.textContent : '$150';
+  }
+  showStep(current + 1);
+}
+
+function goBack(current) {
+  showStep(current - 1);
+}
+
+function showStep(n) {
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  const next = document.getElementById('step-' + n);
+  if (next) next.classList.add('active');
+  updateProgress(n);
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+// ── SHAKE ──
+function shake(el) {
+  el.style.borderColor = '#ef5350';
+  el.style.animation = 'shake .4s ease';
+  el.addEventListener('animationend', () => { el.style.animation = ''; el.style.borderColor = ''; }, {once: true});
+}
+const shakeStyle = document.createElement('style');
+shakeStyle.textContent = '@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}';
+document.head.appendChild(shakeStyle);
+
+// ── SUBMIT ──
+function submitForm() {
+  // Make sure we have the essentials
+  if (!answers.name || !answers.email) return;
+
+  // Price from slider if not set
+  if (!answers.price) {
+    answers.price = document.getElementById('range-display').textContent;
+  }
+
+  // Generate unique reward code
+  const initials = (answers.name || 'AAR').toUpperCase().replace(/[^A-Z]/g,'').slice(0,3) || 'AAR';
+  const code = 'AARAM-' + initials + '-' + Math.floor(Math.random()*9000+1000);
+  answers.code = code;
+
+
+  // Store in localStorage
+  try {
+    const subs = JSON.parse(localStorage.getItem('aaram_signups') || '[]');
+    subs.push(Object.assign({}, answers, {timestamp: new Date().toISOString()}));
+    localStorage.setItem('aaram_signups', JSON.stringify(subs));
+    signupCount++;
+  } catch(e) {}
+
+  // Hide form elements safely
+  var stepCard = document.getElementById('step-card');
+  var progressWrap = document.getElementById('progress-wrap');
+  var offerBanner = document.getElementById('offer-banner');
+  var headerEl = document.querySelector('.header');
+
+  if (stepCard) stepCard.style.display = 'none';
+  if (progressWrap) progressWrap.style.display = 'none';
+  if (offerBanner) offerBanner.style.display = 'none';
+  if (headerEl) headerEl.style.display = 'none';
+
+  // Show success
+  var successEl = document.getElementById('success-page');
+  successEl.classList.add('show');
+
+  var nameEl = document.getElementById('success-name');
+  var codeEl = document.getElementById('reward-code-display');
+  if (nameEl) nameEl.textContent = (answers.name || 'friend').split(' ')[0];
+  if (codeEl) codeEl.textContent = code;
+
+  window.scrollTo({top: 0, behavior: 'smooth'});
+
+  // Send to FormSpree — replace YOUR_FORM_ID with your actual FormSpree ID
+  try {
+    var formData = new FormData();
+    Object.keys(answers).forEach(function(k) { formData.append(k, answers[k]); });
+    fetch('https://formspree.io/f/xnjkypzw', {
+      method: 'POST',
+      body: formData,
+      headers: {'Accept': 'application/json'}
+    }).catch(function() {});
+  } catch(e) {}
+}
+
+// ── SHARE ──
+function shareWhatsApp() {
+  const txt = encodeURIComponent('I just joined the Aaram waitlist 🌿 Professional home massage is coming to Vancouver — CMTBC verified RMTs right to your door. Founding members get 10% off + free upgrade. Sign up here!');
+  window.open('https://wa.me/?text=' + txt, '_blank');
+}
+function shareText() {
+  navigator.clipboard.writeText(window.location.href).then(() => {
+    const btn = event.target;
+    btn.textContent = '✓ Copied!';
+    setTimeout(() => btn.textContent = '📱 Copy link', 2000);
+  });
+}
+
+// ── INIT ──
+updateProgress(1);
+document.getElementById('price-range').addEventListener('input', function() {
+  updateRange(this.value);
+});
+</script>
+</body>
+</html>
