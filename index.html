@@ -154,9 +154,9 @@ input[type=range]::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;
     <div class="logo">Aaram<span>.</span><div class="logo-dot"></div></div>
     <p class="tagline">Professional home massage · Metro Vancouver</p>
     <div class="stats-bar">
-      <div class="stat"><div class="stat-n" id="counter-num">47</div><div class="stat-l">on waitlist</div></div>
+      <div class="stat"><div class="stat-n" id="counter-num">39</div><div class="stat-l">on waitlist</div></div>
       <div class="stat"><div class="stat-n">4</div><div class="stat-l">neighbourhoods</div></div>
-      <div class="stat"><div class="stat-n">2</div><div class="stat-l">spots left today</div></div>
+      <div class="stat"><div class="stat-n">11</div><div class="stat-l">spots left today</div></div>
     </div>
   </div>
 
@@ -185,7 +185,7 @@ input[type=range]::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;
 
     <!-- STEP 1: Name + Email -->
     <div class="step active" id="step-1">
-      <div class="step-num">Step 1 of 7 — The basics</div>
+      <div class="step-num">Step 1 of 9 — The basics</div>
       <div class="step-q">First, what's your name and email? 👋</div>
       <div class="step-sub">We'll send your reward code here. Takes 10 seconds.</div>
       <div class="inp-row" style="margin-bottom:.75rem">
@@ -199,7 +199,7 @@ input[type=range]::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;
 
     <!-- STEP 2: Neighbourhood -->
     <div class="step" id="step-2">
-      <div class="step-num">Step 2 of 7 — Where you live</div>
+      <div class="step-num">Step 2 of 9 — Where you live</div>
       <div class="step-q">Which neighbourhood are you in? 📍</div>
       <div class="step-sub">We launch area by area — this tells us where to go first.</div>
       <div class="options grid-2" id="opts-area">
@@ -223,7 +223,7 @@ input[type=range]::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;
 
     <!-- STEP 3: How often -->
     <div class="step" id="step-3">
-      <div class="step-num">Step 3 of 7 — Your massage habits</div>
+      <div class="step-num">Step 3 of 9 — Your massage habits</div>
       <div class="step-q">How often do you actually get a massage right now? 💆</div>
       <div class="step-sub">Be honest — we're not judging!</div>
       <div class="options" id="opts-freq">
@@ -241,7 +241,7 @@ input[type=range]::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;
 
     <!-- STEP 4: Biggest pain point -->
     <div class="step" id="step-4">
-      <div class="step-num">Step 4 of 7 — The real talk</div>
+      <div class="step-num">Step 4 of 9 — The real talk</div>
       <div class="step-q">What's the biggest thing stopping you from getting massages more often? 🙋</div>
       <div class="step-sub">Pick the one that hits hardest.</div>
       <div class="options" id="opts-pain">
@@ -257,45 +257,65 @@ input[type=range]::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;
       </div>
     </div>
 
-    <!-- STEP 5: Service type -->
+	 <!-- STEP 5: Comfortable -->
     <div class="step" id="step-5">
-      <div class="step-num">Step 5 of 7 — What you want</div>
-      <div class="step-q">What kind of massage would you book first? 🌿</div>
-      <div class="step-sub">Pick your top choice — helps us know what to offer first.</div>
+      <div class="step-num">Step 5 of 9 — At home massage</div>
+      <div class="step-q">Have you ever booked an at-home massage before?</div>
+      <div class="step-sub">Pick your choice</div>
       <div class="options grid-2" id="opts-service">
-        <button class="opt-btn" onclick="selectOpt(this,'service')"><span class="opt-icon">😌</span><span class="opt-label">Swedish / Relaxation</span><span class="opt-check"></span></button>
-        <button class="opt-btn" onclick="selectOpt(this,'service')"><span class="opt-icon">💪</span><span class="opt-label">Deep Tissue</span><span class="opt-check"></span></button>
-        <button class="opt-btn" onclick="selectOpt(this,'service')"><span class="opt-icon">🤰</span><span class="opt-label">Prenatal</span><span class="opt-check"></span></button>
-        <button class="opt-btn" onclick="selectOpt(this,'service')"><span class="opt-icon">🏃</span><span class="opt-label">Sports Recovery</span><span class="opt-check"></span></button>
-        <button class="opt-btn" onclick="selectOpt(this,'service')"><span class="opt-icon">🪨</span><span class="opt-label">Hot Stone Add-on</span><span class="opt-check"></span></button>
-        <button class="opt-btn" onclick="selectOpt(this,'service')"><span class="opt-icon">🤷</span><span class="opt-label">Whatever my body needs!</span><span class="opt-check"></span></button>
-      </div>
-      <div class="btn-row">
-        <button class="btn-back" onclick="goBack(5)">← Back</button>
-        <button class="btn-next" id="next-5" onclick="goNext(5)" disabled>Next →</button>
-      </div>
-    </div>
+        <button class="opt-btn" onclick="selectOpt(this,'service')"><span class="opt-icon">✅</span><span class="opt-label">Yes</span><span class="opt-check"></span></button>
+        <button class="opt-btn" onclick="selectOpt(this,'service')"><span class="opt-icon">❌</span><span class="opt-label">No</span><span class="opt-check"></span></button>
+	  </div>
+	  <div class="btn-row">
+		<button class="btn-back" onclick="goBack(5)">← Back</button>
+		<button class="btn-next" id="next-5" onclick="goNext(5)" disabled>Next →</button>
+	  </div>
+	</div>
 
-    <!-- STEP 6: Price they'd pay -->
+	 <!-- STEP 6: Reasons for no home massage -->
     <div class="step" id="step-6">
-      <div class="step-num">Step 6 of 7 — The money question</div>
-      <div class="step-q">For a 60-min home massage by a verified RMT — what feels fair? 💰</div>
-      <div class="step-sub">Vancouver clinics charge $140–$150. Drag to your number.</div>
-      <div class="range-wrap">
-        <div class="range-val" id="range-display">$185</div>
-        <input type="range" id="price-range" min="150" max="220" step="10" value="185" oninput="updateRange(this.value)">
-        <div class="range-labels"><span>$150</span><span>$185</span><span>$220</span></div>
-      </div>
-      <div class="btn-row">
+      <div class="step-num">Step 6 of 9 — If "No" </div>
+      <div class="step-q">What is the main reason you haven't tried an at-home massage before? </div>
+      <div class="step-sub">Pick your reason</div>
+      <div class="options grid-2" id="opts-service">
+        <button class="opt-btn" onclick="selectOpt(this,'service')"><span class="opt-icon">👀</span><span class="opt-label">Safety concerns</span><span class="opt-check"></span></button>
+		 <button class="opt-btn" onclick="selectOpt(this,'service')"><span class="opt-icon">🤔</span><span class="opt-label">Didn't know this service was available </span><span class="opt-check"></span></button>  
+        <button class="opt-btn" onclick="selectOpt(this,'service')"><span class="opt-icon">🏢</span><span class="opt-label">Prefer going to a spa or clinic</span><span class="opt-check"></span></button>
+        <button class="opt-btn" onclick="selectOpt(this,'service')"><span class="opt-icon">💸</span><span class="opt-label">Too expensive</span><span class="opt-check"></span></button>
+        <button class="opt-btn" onclick="selectOpt(this,'service')"><span class="opt-icon">🔒</span><span class="opt-label">Privacy concerns </span><span class="opt-check"></span></button>
+		<button class="opt-btn" onclick="selectOpt(this,'service')"><span class="opt-icon">🙅</span><span class="opt-label">Not interested </span><span class="opt-check"></span></button>
+		<button class="opt-btn" onclick="selectOther(this)"><span class="opt-icon">✍️</span><span class="opt-label">Other</span><span class="opt-check"></span></button><div id="other-box" style="display:none;margin-top:15px;"><input type="text" id="other-input" placeholder="Please specify..." style="width:100%;padding:12px;border-radius:10px;border:1px solid #ccc;"></div>  
+	</div>
+	<div class="btn-row">
         <button class="btn-back" onclick="goBack(6)">← Back</button>
-        <button class="btn-next" onclick="goNext(6)">Next →</button>
+        <button class="btn-next" id="next-6" onclick="goNext(6)" disabled>Next →</button>
       </div>
     </div>
 
-    <!-- STEP 7: Extended health + timing -->
+	
+	 <!-- STEP 7: Reasons for no home massage -->
     <div class="step" id="step-7">
-      <div class="step-num">Step 7 of 7 — Last two quick ones</div>
-      <div class="step-q">Do you have extended health benefits? And when would you book? ⚡</div>
+      <div class="step-num">Step 7 of 9 — If "No" </div>
+      <div class="step-q">Knowing that every therapist is professionally licensed, identity verified, background checked, insuared, and reviewed by previous customers, how comfortbale would you feel booking an at-home massage service? </div>
+      <div class="step-sub">Pick your reason</div>
+      <div class="options grid-2" id="opts-service">
+        <button class="opt-btn" onclick="selectOpt(this,'service')"><span class="opt-icon">😊</span><span class="opt-label">Very confortable</span><span class="opt-check"></span></button>
+		 <button class="opt-btn" onclick="selectOpt(this,'service')"><span class="opt-icon">🙂</span><span class="opt-label">Somewhat comfortable</span><span class="opt-check"></span></button>  
+        <button class="opt-btn" onclick="selectOpt(this,'service')"><span class="opt-icon">😐</span><span class="opt-label">Neutral</span><span class="opt-check"></span></button>
+        <button class="opt-btn" onclick="selectOpt(this,'service')"><span class="opt-icon">😕</span><span class="opt-label">Somewhat uncomfortable</span><span class="opt-check"></span></button>
+        <button class="opt-btn" onclick="selectOpt(this,'service')"><span class="opt-icon">😟</span><span class="opt-label">Very unconfortable </span><span class="opt-check"></span></button>
+		<button class="opt-btn" onclick="selectOther(this)"><span class="opt-icon">✍️</span><span class="opt-label">Other</span><span class="opt-check"></span></button><div id="other-box" style="display:none;margin-top:15px;"><input type="text" id="other-input" placeholder="Please specify..." style="width:100%;padding:12px;border-radius:10px;border:1px solid #ccc;"></div>
+	</div>
+	<div class="btn-row">
+        <button class="btn-back" onclick="goBack(7)">← Back</button>
+        <button class="btn-next" id="next-7" onclick="goNext(7)" disabled>Next →</button>
+      </div>
+    </div>
+
+    <!-- STEP 8: Extended health + timing -->
+    <div class="step" id="step-8">
+      <div class="step-num">Step 8 of 9 — Last two quick ones</div>
+      <div class="step-q">Do you have extended health benefits?</div>
       <div class="step-sub">Almost done — 20 seconds max.</div>
       <p style="font-size:.82rem;color:rgba(255,255,255,0.5);margin-bottom:.5rem">Extended health plan?</p>
       <div class="options grid-2" id="opts-benefits" style="margin-bottom:1.2rem">
@@ -304,15 +324,34 @@ input[type=range]::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;
         <button class="opt-btn" onclick="selectOpt(this,'benefits')"><span class="opt-icon">❌</span><span class="opt-label">No benefits</span><span class="opt-check"></span></button>
         <button class="opt-btn" onclick="selectOpt(this,'benefits')"><span class="opt-icon">🤔</span><span class="opt-label">Not sure</span><span class="opt-check"></span></button>
       </div>
-      <p style="font-size:.82rem;color:rgba(255,255,255,0.5);margin-bottom:.5rem">When would you book your first session?</p>
-      <div class="options" id="opts-timing">
-        <button class="opt-btn" onclick="selectOpt(this,'timing')"><span class="opt-icon">🚀</span><span class="opt-label">The moment you launch — I'm ready now</span><span class="opt-check"></span></button>
-        <button class="opt-btn" onclick="selectOpt(this,'timing')"><span class="opt-icon">📆</span><span class="opt-label">Within the first month</span><span class="opt-check"></span></button>
-        <button class="opt-btn" onclick="selectOpt(this,'timing')"><span class="opt-icon">👀</span><span class="opt-label">I want to see reviews first</span><span class="opt-check"></span></button>
+      <div class="btn-row">
+        <button class="btn-back" onclick="goBack(8)">← Back</button>
+		<button class="btn-next" id="next-8" onclick="goNext(8)" disabled>Next →</button>
+        <!--<button class="btn-next" id="next-8" onclick="submitForm()" disabled>
+          <span>Claim my reward 🎁</span>
+        </button>-->
+      </div>
+    </div>
+
+  </div>
+	
+	
+  <!-- STEP 9: Still choose -->
+    <div class="step" id="step-9">
+      <div class="step-num">Step 9 of 9 — Last two quick ones</div>
+      <div class="step-q">If a home massage offers the better quality than clinic and cost about the same after insaurance/benefits, which would you choose?</div>
+      <div class="step-sub">Almost done — 20 seconds max.</div>
+      <p style="font-size:.82rem;color:rgba(255,255,255,0.5);margin-bottom:.5rem">Extended health plan?</p>
+      <div class="options grid-2" id="opts-benefits" style="margin-bottom:1.2rem">
+        <button class="opt-btn" onclick="selectOpt(this,'benefits')"><span class="opt-icon">🏠</span><span class="opt-label">Definitely choose at-home massage</span><span class="opt-check"></span></button>
+        <button class="opt-btn" onclick="selectOpt(this,'benefits')"><span class="opt-icon">🙂</span><span class="opt-label">Probabaly choose at-home massage</span><span class="opt-check"></span></button>
+        <button class="opt-btn" onclick="selectOpt(this,'benefits')"><span class="opt-icon">⚖️</span><span class="opt-label">No preference</span><span class="opt-check"></span></button>
+        <button class="opt-btn" onclick="selectOpt(this,'benefits')"><span class="opt-icon">🏥</span><span class="opt-label">Probably choose clinic</span><span class="opt-check"></span></button>
+		<button class="opt-btn" onclick="selectOpt(this,'benefits')"><span class="opt-icon">🏢</span><span class="opt-label">Definitely choose clinic</span><span class="opt-check"></span></button>
       </div>
       <div class="btn-row">
-        <button class="btn-back" onclick="goBack(7)">← Back</button>
-        <button class="btn-next" id="next-7" onclick="submitForm()" disabled>
+        <button class="btn-back" onclick="goBack(9)">← Back</button>
+        <button class="btn-next" id="next-9" onclick="submitForm()" disabled>
           <span>Claim my reward 🎁</span>
         </button>
       </div>
