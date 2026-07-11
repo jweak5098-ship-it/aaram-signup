@@ -84,6 +84,7 @@ body{font-family:'Inter',sans-serif;background:#0d1b12;color:var(--white);min-he
 
 /* ── OTHER ── */
 .other-line{flex:1;min-width:0;width:100%;border:none;border-bottom:1px solid #999;background:transparent;outline:none;font-size:15px;padding:4px;color:white;}
+.other-option .opt-label{flex:1;white-space:nowrap;}
 	
 /* ── RANGE SLIDER ── */
 .range-wrap{padding:.5rem 0}
@@ -287,18 +288,8 @@ input[type=range]::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;
         <button class="opt-btn" onclick="selectOpt(this,'reason')"><span class="opt-icon">💸</span><span class="opt-label">Too expensive</span><span class="opt-check"></span></button>
         <button class="opt-btn" onclick="selectOpt(this,'reason')"><span class="opt-icon">🔒</span><span class="opt-label">Privacy concerns </span><span class="opt-check"></span></button>
 		<button class="opt-btn" onclick="selectOpt(this,'reason')"><span class="opt-icon">🙅</span><span class="opt-label">Not interested </span><span class="opt-check"></span></button>
-		<button class="opt-btn" onclick="selectOpt(this,'reason')">
-		  <span class="opt-icon">✍️</span>
-		  <span class="opt-label">Other:</span>
-		  <input 
-		    type="text" 
-		    id="other-input" 
-		    class="other-line" 
-		    placeholder="Please specify..."
-		    onclick="event.stopPropagation();"
-		  >
-		  <span class="opt-check"></span>
-		</button>
+		<button class="opt-btn" onclick="selectOther(this,'reason')"><span class="opt-icon">✍️</span><span class="opt-label">Other</span></button>
+		<input id="other-input" class="other-line" type="text" placeholder="Please specify..." style="display:none;">
 	  </div>
 	<div class="btn-row">
         <button class="btn-back" onclick="goBack(6)">← Back</button>
@@ -469,7 +460,19 @@ function selectOpt(btn, group) {
   }
 }
 
-//  ── OTHER ──
+// ── OTHER OPTION ──
+function selectOther(btn, key){
+  document.querySelectorAll('.opt-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+
+  const input = document.getElementById('other-input');
+  input.style.display = 'block';
+  input.focus();
+
+  answers[key] = input.value;
+}
+
+// ── OTHER INPUT ──
 document.getElementById('other-input').addEventListener('input', function(){
   answers.reason = this.value;
 });
