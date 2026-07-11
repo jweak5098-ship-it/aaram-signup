@@ -277,14 +277,14 @@ input[type=range]::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;
       <div class="step-num">Step 6 of 9 — If "No" </div>
       <div class="step-q">What is the main reason you haven't tried an at-home massage before? </div>
       <div class="step-sub">Pick your reason</div>
-      <div class="options grid-2" id="opts-service">
-        <button class="opt-btn" onclick="selectOpt(this,'service')"><span class="opt-icon">👀</span><span class="opt-label">Safety concerns</span><span class="opt-check"></span></button>
-		 <button class="opt-btn" onclick="selectOpt(this,'service')"><span class="opt-icon">🤔</span><span class="opt-label">Didn't know this service was available </span><span class="opt-check"></span></button>  
+      <div class="options grid-2" id="opts-reason">
+        <button class="opt-btn" onclick="selectOpt(this,'reason')"><span class="opt-icon">👀</span><span class="opt-label">Safety concerns</span><span class="opt-check"></span></button>
+		 <button class="opt-btn" onclick="selectOpt(this,'reason')"><span class="opt-icon">🤔</span><span class="opt-label">Didn't know this service was available </span><span class="opt-check"></span></button>  
         <button class="opt-btn" onclick="selectOpt(this,'service')"><span class="opt-icon">🏢</span><span class="opt-label">Prefer going to a spa or clinic</span><span class="opt-check"></span></button>
-        <button class="opt-btn" onclick="selectOpt(this,'service')"><span class="opt-icon">💸</span><span class="opt-label">Too expensive</span><span class="opt-check"></span></button>
-        <button class="opt-btn" onclick="selectOpt(this,'service')"><span class="opt-icon">🔒</span><span class="opt-label">Privacy concerns </span><span class="opt-check"></span></button>
-		<button class="opt-btn" onclick="selectOpt(this,'service')"><span class="opt-icon">🙅</span><span class="opt-label">Not interested </span><span class="opt-check"></span></button>
-		<button class="opt-btn" onclick="selectOther(this)"><span class="opt-icon">✍️</span><span class="opt-label">Other</span><span class="opt-check"></span></button><div id="other-box" style="display:none;margin-top:15px;"><input type="text" id="other-input" placeholder="Please specify..." style="width:100%;padding:12px;border-radius:10px;border:1px solid #ccc;"></div>  
+        <button class="opt-btn" onclick="selectOpt(this,'reason')"><span class="opt-icon">💸</span><span class="opt-label">Too expensive</span><span class="opt-check"></span></button>
+        <button class="opt-btn" onclick="selectOpt(this,'reason')"><span class="opt-icon">🔒</span><span class="opt-label">Privacy concerns </span><span class="opt-check"></span></button>
+		<button class="opt-btn" onclick="selectOpt(this,'reason')"><span class="opt-icon">🙅</span><span class="opt-label">Not interested </span><span class="opt-check"></span></button>
+		<button class="opt-btn" onclick="selectOther(this, 'reason')"><span class="opt-icon">✍️</span><span class="opt-label">Other</span><span class="opt-check"></span></button><div id="other-box" style="display:none;margin-top:15px;"><input type="text" id="other-input" placeholder="Please specify..." style="width:100%;padding:12px;border-radius:10px;border:1px solid #ccc;"></div>  
 	</div>
 	<div class="btn-row">
         <button class="btn-back" onclick="goBack(6)">← Back</button>
@@ -450,7 +450,7 @@ function selectOpt(btn, group) {
   answers[group] = labelEl ? labelEl.textContent.trim() : '';
 
   // Enable next button
-  var stepMap = {area:2, freq:3, pain:4, service:5};
+  var stepMap = {area:2, freq:3, pain:4, service:5, reason:6 };
   if (stepMap[group]) {
     var nb = document.getElementById('next-' + stepMap[group]);
     if (nb) nb.disabled = false;
