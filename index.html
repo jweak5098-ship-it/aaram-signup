@@ -288,8 +288,11 @@ input[type=range]::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;
         <button class="opt-btn" onclick="selectOpt(this,'reason')"><span class="opt-icon">💸</span><span class="opt-label">Too expensive</span><span class="opt-check"></span></button>
         <button class="opt-btn" onclick="selectOpt(this,'reason')"><span class="opt-icon">🔒</span><span class="opt-label">Privacy concerns </span><span class="opt-check"></span></button>
 		<button class="opt-btn" onclick="selectOpt(this,'reason')"><span class="opt-icon">🙅</span><span class="opt-label">Not interested </span><span class="opt-check"></span></button>
-		<button class="opt-btn" onclick="selectOther(this,'reason')"><span class="opt-icon">✍️</span><span class="opt-label">Other</span></button>
-		<input id="other-input" class="other-line" type="text" placeholder="Please specify..." style="display:none;">
+		<button class="opt-btn" onclick="selectOpt(this,'reason','Other')">
+		  <span class="opt-icon">✍️</span>
+		  <span class="opt-label">Other:</span>
+		</button>
+		<input id="other-input" class="other-line" placeholder="Please specify" style="display:none;" disabled>
 	  </div>
 	<div class="btn-row">
         <button class="btn-back" onclick="goBack(6)">← Back</button>
@@ -437,7 +440,7 @@ function updateProgress(step) {
   document.getElementById('progress-label').textContent = labels[step - 1];
 }
 
-// ── OPTION SELECT ──
+/* // ── OPTION SELECT ──
 function selectOpt(btn, group) {
   var container = document.getElementById('opts-' + group);
   if (!container) return;
@@ -475,7 +478,101 @@ function selectOther(btn, key){
 // ── OTHER INPUT ──
 document.getElementById('other-input').addEventListener('input', function(){
   answers.reason = this.value;
+});   */
+
+
+
+
+
+// ── OPTION SELECT ──
+function selectOpt(btn, group) {
+  var container = document.getElementById('opts-' + group);
+  if (!container) return;
+
+  container.querySelectorAll('.opt-btn').forEach(function(b) {
+    b.classList.remove('selected');
+    var chk = b.querySelector('.opt-check');
+    if (chk) chk.textContent = '';
+  });
+
+  btn.classList.add('selected');
+
+  var check = btn.querySelector('.opt-check');
+  if (check) check.textContent = '✓';
+
+  var labelEl = btn.querySelector('.opt-label');
+  var selectedValue = labelEl ? labelEl.textContent.trim() : '';
+
+  answers[group] = selectedValue;
+
+  // ── Disable Other input if another option is selected ──
+  var otherInput = document.getElementById('other-input');
+
+  if (otherInput && group === 'reason') {
+    otherInput.disabled = true;
+    otherInput.value = '';
+    
+    if (selectedValue !== 'Other:') {
+      otherInput.style.display = 'none';
+    }
+
+    answers[group] = selectedValue;
+  }
+
+  // Enable next button
+  var stepMap = {
+    area:2,
+    freq:3,
+    pain:4,
+    service:5,
+    reason:6,
+    reason_1:7,
+    benefits:8,
+    preference:9
+  };
+
+  if (stepMap[group]) {
+    var nb = document.getElementById('next-' + stepMap[group]);
+    if (nb) nb.disabled = false;
+  }
+}
+
+
+// ── OTHER OPTION ──
+function selectOther(btn, key){
+  var container = btn.closest('.options');
+
+  if (container) {
+    container.querySelectorAll('.opt-btn').forEach(function(b){
+      b.classList.remove('selected');
+
+      var chk = b.querySelector('.opt-check');
+      if (chk) chk.textContent = '';
+    });
+  }
+
+  btn.classList.add('selected');
+
+  var check = btn.querySelector('.opt-check');
+  if (check) check.textContent = '✓';
+
+  var input = document.getElementById('other-input');
+
+  input.style.display = 'block';
+  input.disabled = false;
+  input.focus();
+
+  answers[key] = input.value;
+}
+
+
+// ── OTHER INPUT ──
+document.getElementById('other-input').addEventListener('input', function(){
+  answers.reason = this.value;
 });
+
+
+
 	
 // ── RANGE ──
 function updateRange(val) {
