@@ -165,7 +165,7 @@ input[type=range]::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;
     <div class="offer-icon">🎁</div>
     <div class="offer-text">
       <h3>Founding member rewards — just for signing up</h3>
-      <p>First 50 members get 10% off their first session. Next 50 get a free upgrade from 60 to 90 min. Both. No catch.</p>
+      <p>First 50 members get 10% off their first session and a free upgrade from 60 to 90 min. Both. No catch.</p>
     </div>
   </div>
 
@@ -454,15 +454,14 @@ function selectOpt(btn, group) {
     if (nb) nb.disabled = false;
   }
 
-  // Step 7 needs both benefits AND timing answered
-  if (group === 'benefits' || group === 'timing') {
-    var n7 = document.getElementById('next-7');
-    if (n7 && answers.benefits && answers.timing) {
-      n7.disabled = false;
-    }
-  }
-}
-
+  // Step 9 
+  if (group === 'preference') {
+    var n9 = document.getElementById('next-9');
+    if (n9 && answers.reward) {
+        n9.disabled = false;
+    	}
+	}
+	
 // ── RANGE ──
 function updateRange(val) {
   document.getElementById('range-display').textContent = '$' + val;
