@@ -395,9 +395,9 @@ input[type=range]::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;
 </div><!-- /wrap -->
 
 <script>
-const TOTAL = 7;
+const TOTAL = 9;
 let answers = {};
-let signupCount = 47;
+let signupCount = 39;
 
 // ── COUNTER ANIMATION ──
 function animateCounter() {
@@ -421,12 +421,14 @@ function updateProgress(step) {
 
   const labels = [
     "Let's get started",
-    "Almost there...",
-    "Keep going!",
-    "Halfway there 🙌",
-    "Looking great!",
-    "One more...",
-    "Last one!"
+	"Almost there...",
+	"Keep going!",
+	"Halfway there 🙌",
+	"Looking great!",
+	"One more...",
+	"Last one!",
+	"Final step!",
+	"You're all done! 🎉"
   ];
 
   document.getElementById('progress-label').textContent = labels[step - 1];
