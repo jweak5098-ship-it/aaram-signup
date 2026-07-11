@@ -176,7 +176,7 @@ input[type=range]::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;
     </div>
     <div class="progress-labels">
       <span id="progress-label">Let's get started</span>
-      <span id="progress-pct">0 / 7</span>
+      <span id="progress-pct">0 / 9</span>
     </div>
   </div>
 
@@ -448,19 +448,19 @@ function selectOpt(btn, group) {
   answers[group] = labelEl ? labelEl.textContent.trim() : '';
 
   // Enable next button
-  var stepMap = {area:2, freq:3, pain:4, service:5, reason:6, reason_1:7, benefits:8 };
+  var stepMap = {area:2, freq:3, pain:4, service:5, reason:6, reason_1:7, benefits:8};
   if (stepMap[group]) {
     var nb = document.getElementById('next-' + stepMap[group]);
     if (nb) nb.disabled = false;
   }
 
-  // Step 9 
+  // Step 9 Enable Claim Rewards Button
   if (group === 'preference') {
     var n9 = document.getElementById('next-9');
-    if (n9 && answers.reward) {
+    if (n9 && answers.preference) {
         n9.disabled = false;
-    	}
-	}
+    }
+}
 	
 // ── RANGE ──
 function updateRange(val) {
