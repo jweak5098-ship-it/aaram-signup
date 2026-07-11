@@ -82,6 +82,9 @@ body{font-family:'Inter',sans-serif;background:#0d1b12;color:var(--white);min-he
 /* ── MULTI SELECT ── */
 .multi-hint{font-size:.75rem;color:rgba(255,255,255,0.4);margin-bottom:.75rem}
 
+/* ── OTHER ── */
+.other-line { flex: 1; border: none; border-bottom: 1px solid #999; background: transparent; outline: none; font-size: 15px; padding: 4px; min-width: 100px; }
+
 /* ── RANGE SLIDER ── */
 .range-wrap{padding:.5rem 0}
 .range-labels{display:flex;justify-content:space-between;font-size:.8rem;color:rgba(255,255,255,0.4);margin-bottom:.4rem}
@@ -284,8 +287,13 @@ input[type=range]::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;
         <button class="opt-btn" onclick="selectOpt(this,'reason')"><span class="opt-icon">💸</span><span class="opt-label">Too expensive</span><span class="opt-check"></span></button>
         <button class="opt-btn" onclick="selectOpt(this,'reason')"><span class="opt-icon">🔒</span><span class="opt-label">Privacy concerns </span><span class="opt-check"></span></button>
 		<button class="opt-btn" onclick="selectOpt(this,'reason')"><span class="opt-icon">🙅</span><span class="opt-label">Not interested </span><span class="opt-check"></span></button>
-		<button class="opt-btn" onclick="selectOther(this, 'reason')"><span class="opt-icon">✍️</span><span class="opt-label">Other</span><span class="opt-check"></span></button><div id="other-box" style="display:none;margin-top:15px;"><input type="text" id="other-input" placeholder="Please specify..." style="width:100%;padding:12px;border-radius:10px;border:1px solid #ccc;"></div>  
-	</div>
+		<button class="opt-btn" onclick="selectOpt(this,'reason')">
+		  <span class="opt-icon">✍️</span>
+		  <span class="opt-label">Other:</span>
+		  <input type="text" id="other-input" class="other-line" placeholder="Please specify..." onclick="event.stopPropagation();">
+		  <span class="opt-check"></span>
+		</button>
+	  </div>
 	<div class="btn-row">
         <button class="btn-back" onclick="goBack(6)">← Back</button>
         <button class="btn-next" id="next-6" onclick="goNext(6)" disabled>Next →</button>
@@ -454,6 +462,11 @@ function selectOpt(btn, group) {
     if (nb) nb.disabled = false;
   }
 }
+
+//  ── OTHER ──
+document.getElementById('other-input').addEventListener('input', function(){
+  answers.reason = this.value;
+});
 	
 // ── RANGE ──
 function updateRange(val) {
