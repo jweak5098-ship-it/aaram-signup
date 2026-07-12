@@ -590,10 +590,6 @@ function goNext(current) {
     answers.name = name;
     answers.email = email;
   }
-  if (current === 6) {
-    var rangeDisplay = document.getElementById('range-display');
-    answers.price = rangeDisplay ? rangeDisplay.textContent : '$150';
-  }
   showStep(current + 1);
 }
 
@@ -623,11 +619,6 @@ document.head.appendChild(shakeStyle);
 function submitForm() {
   // Make sure we have the essentials
   if (!answers.name || !answers.email) return;
-
-  // Price from slider if not set
-  if (!answers.price) {
-    answers.price = document.getElementById('range-display').textContent;
-  }
 
   // Generate unique reward code
   const initials = (answers.name || 'AAR').toUpperCase().replace(/[^A-Z]/g,'').slice(0,3) || 'AAR';
