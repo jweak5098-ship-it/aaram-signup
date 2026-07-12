@@ -444,23 +444,56 @@ function updateProgress(step) {
 function selectOpt(btn, group) {
   var container = document.getElementById('opts-' + group);
   if (!container) return;
+  // Allow multiple selection only for Question 6
+if (group !== 'reason') {
   container.querySelectorAll('.opt-btn').forEach(function(b) {
     b.classList.remove('selected');
     var chk = b.querySelector('.opt-check');
     if (chk) chk.textContent = '';
   });
+}
+  if (group === 'reason') {
+
+  btn.classList.toggle('selected');
+
+  var check = btn.querySelector('.opt-check');
+  if (check) {
+    check.textContent = btn.classList.contains('selected') ? '✓' : '';
+  }
+
+  var selected = [];
+
+  container.querySelectorAll('.opt-btn.selected').forEach(function(b) {
+    selected.push(b.querySelector('.opt-label').textContent.trim());
+  });
+
+  answers.reason = selected.join(', ');
+
+} else {
+
   btn.classList.add('selected');
+
   var check = btn.querySelector('.opt-check');
   if (check) check.textContent = '✓';
+
   var labelEl = btn.querySelector('.opt-label');
   answers[group] = labelEl ? labelEl.textContent.trim() : '';
 
+}
+
   // Enable next button
   var stepMap = {area:2, freq:3, pain:4, service:5, reason:6, reason_1:7, benefits:8, preference:9};
-  if (stepMap[group]) {
-    var nb = document.getElementById('next-' + stepMap[group]);
+ if (stepMap[group]) {
+  var nb = document.getElementById('next-' + stepMap[group]);
+
+  if (group === 'reason') {
+    if (nb) {
+      nb.disabled = container.querySelectorAll('.opt-btn.selected').length === 0;
+    }
+  } else {
     if (nb) nb.disabled = false;
   }
+}
 }
 
 // ── OTHER OPTION ──
